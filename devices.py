@@ -100,6 +100,11 @@ class Camera(Device):
         self.radius_sprite.center_x = x
         self.radius_sprite.center_y = y
 
+        self.radius_sprite1 = arcade.Sprite("images/devices/radius1.png")  # делаем спрайт для сектора
+        self.radius_sprite1.scale = 0.14
+        self.radius_sprite1.center_x = x
+        self.radius_sprite1.center_y = y
+
         self.rotation_speed = 20  # скорость поворота камеру
         self.rotation_direction = 1
         self.max_angle = max_degrees
@@ -116,6 +121,8 @@ class Camera(Device):
             self.is_hacked = True
             if self.radius_sprite in self.radius_sprite_list:  # убираем сектор при взломе
                 self.radius_sprite_list.remove(self.radius_sprite)
+            if self.radius_sprite1 in self.radius_sprite_list:  # убираем сектор при взломе
+                self.radius_sprite_list.remove(self.radius_sprite1)
             self.emitters.append(make_explosion(self.center_x, self.center_y))
             self.emitters.append(make_smoke_puff(self.center_x, self.center_y))
 
@@ -132,6 +139,7 @@ class Camera(Device):
         if not self.is_hacked:
             if not self.is_hacked:
                 self.radius_sprite.angle += self.rotation_speed * delta_time * self.rotation_direction
+                self.radius_sprite1.angle += self.rotation_speed * delta_time * self.rotation_direction
                 if abs(self.radius_sprite.angle) >= self.max_angle:
                     self.rotation_direction *= -1
                 self.radius_angle += self.radius_rotation_speed * delta_time * self.radius_direction
