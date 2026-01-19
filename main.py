@@ -68,17 +68,18 @@ class Minigame(arcade.View):
                 anchor_x="center",
                 batch=self.batch1
             )
-            self.batch1.draw()
             if self.message:
                 color = arcade.color.GREEN if self.message == "Верно!" else arcade.color.RED
-                arcade.draw_text(
+                self.title3 = arcade.Text(
                     self.message,
                     self.window.width // 2,
                     self.window.height // 2 + 100,
                     color,
                     50,
-                    anchor_x="center"
+                    anchor_x="center",
+                    batch=self.batch1
                 )
+            self.batch1.draw()
 
     def on_key_press(self, key, modifiers):
         if arcade.key.KEY_0 <= key <= arcade.key.KEY_9:
@@ -592,6 +593,10 @@ class Astral_Escape_2(arcade.View):
             arcade.draw_texture_rect(self.player.texture_right,
                                      arcade.rect.XYWH(self.player.astral_form_x, self.player.astral_form_y, 80,
                                                       80))
+            self.title1 = arcade.Text(f"Выход из астральной формы через: {int(6 - self.player.astral_timer)}",
+                                      0, 740,
+                                      arcade.color.WHITE, 25,
+                                      batch=self.batch1)
             self.astral_list.draw()
         self.door2_list.draw()
         self.devices.draw()
